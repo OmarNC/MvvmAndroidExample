@@ -3,6 +3,8 @@ package com.onc.mvvmandroidexample.view.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.onc.mvvmandroidexample.R
 import com.onc.mvvmandroidexample.databinding.FragmentListBinding
 import com.onc.mvvmandroidexample.databinding.UserItemBinding
 import com.onc.mvvmandroidexample.model.entities.User
@@ -14,11 +16,18 @@ class UserAdapter(private val items : ArrayList<User>): RecyclerView.Adapter<Use
     class UserViewHolder(val binding: UserItemBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(user : User, onItemClick: ((User) -> Unit)?){
-            binding.tvName.text = "Nombre: ${user.name}"
-            binding.tvLastName.text = "Apellido: ${user.lastName}"
-            binding.tvAge.text = "Edad: ${user.age}"
+//            binding.tvName.text = "Nombre: ${user.name}"
+//            binding.tvLastName.text = "Apellido: ${user.lastName}"
+//            binding.tvAge.text = "Edad: ${user.age}"
 
-            binding.userCard.setOnClickListener {
+            binding.user = user
+//
+            user?.image?.let {
+                Glide.with(binding.root).load(user.image).placeholder(R.mipmap.ic_launcher)
+                    .into(binding.image)
+            }
+
+             binding.userCard.setOnClickListener {
                 onItemClick?.invoke(user)
             }
 

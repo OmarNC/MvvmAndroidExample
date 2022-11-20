@@ -1,38 +1,56 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".view.fragments.DetailFragment">
+<layout>
+    <data>
+        <variable
+            name="user"
+            type="com.onc.mvvmandroidexample.model.entities.User" />
+    </data>
 
-    <RelativeLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:context=".view.fragments.DetailFragment">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvName"
-        android:text="Name"
-        android:textSize="20sp"
-        android:layout_above="@+id/tvLastName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_above="@id/tvName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp" />
 
-    <TextView
-        android:id="@+id/tvLastName"
-        android:text="LastName"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tvAge"
-        android:text="Age"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tvLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    </RelativeLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvLastName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="@{@string/detail_name(user.name)}"
+                android:textColor="@color/orange"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@{@string/detail_lastName(user.lastName)}" />
+
+            <TextView
+                android:id="@+id/tvAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvLastName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@{@string/detail_age_i(user.age)}"
+                android:textColor="@color/teal_200" />
+        </RelativeLayout>
+    </ScrollView>
+</layout>

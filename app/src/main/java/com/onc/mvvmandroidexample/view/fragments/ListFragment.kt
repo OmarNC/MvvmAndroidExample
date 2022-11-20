@@ -35,27 +35,40 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentListBinding.bind(view)
+
+        binding.refresh.setOnRefreshListener{
+            userViewModel.getUserList()
+            binding.refresh.isRefreshing = false
+        }
         adapter = UserAdapter(arrayListOf())
 
         adapter.onItemClick = {
+            val action = ListFragmentDirections.actionListFragmentToDetailFragment(it)
+            findNavController().navigate(action)
+
 //            parentFragmentManager.beginTransaction()
 //                .replace(R.id.container, DetailFragment.newInstance(it))
 //                .addToBackStack("DetailFragment")
 //                .commit()
 
-            parentFragmentManager.commit{
-                replace(R.id.container, DetailFragment.newInstance(it))
-                addToBackStack("DetailFragment")
-            }
+//            parentFragmentManager.commit{
+//                replace(R.id.container, DetailFragment.newInstance(it))
+//                addToBackStack("DetailFragment")
+//            }
         }
 
         binding.userList.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.userList.adapter =adapter
 
-        userViewModel.getUserList()
+        //userViewModel.getUserList()
 
         userViewModel.list.observe(viewLifecycleOwner, Observer {
             adapter.updateItems(it)
+        })
+
+        userViewModel.loader.observe(viewLifecycleOwner, Observer {
+            binding.loader.visibility = if (it == true) View.VISIBLE else View.GONE
+            binding.userList.visibility = if (it == true) View.GONE else View.VISIBLE
         })
     }
 }

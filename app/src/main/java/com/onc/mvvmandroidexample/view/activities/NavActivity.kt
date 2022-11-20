@@ -13,16 +13,16 @@ import com.onc.mvvmandroidexample.databinding.ActivityNavBinding
 
 class NavActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityNavBinding
     private lateinit var navController:NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // binding = ActivityNavBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_nav)
+        binding = ActivityNavBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         navController = findNavController(R.id.container)
-        //setupActionBarWithNavController(null)
+        setupActionBarWithNavController(navController,null)
     }
 
     override fun onSupportNavigateUp(): Boolean {
